@@ -1,0 +1,17 @@
+node_modules
+database-files
+build
+vendor
+# .env
+test
+sandbox
+run.sh
+# Env
+**/envs
+**/backend/*.env
+
+#Docker volume
+**/db
+
+
+step-function-test

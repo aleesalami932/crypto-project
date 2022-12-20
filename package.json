@@ -1,0 +1,16 @@
+{
+  "name": "crypto",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean",
+    "start:frontend": "lerna run --scope @crypto/frontend start --stream",
+    "start:backend": "lerna run --scope @crypto/backend start --stream"
+  }
+}
