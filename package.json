@@ -11,6 +11,6 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "start:frontend": "lerna run --scope @crypto/frontend start --stream",
-    "start:backend": "lerna run --scope @crypto/backend start --stream"
+    "start:backend": "lerna run --scope @crypto/backend start:dev --stream"
   }
 }
