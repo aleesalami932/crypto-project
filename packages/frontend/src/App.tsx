@@ -1,9 +1,8 @@
 import React from "react";
-import { Counter } from "./features/counter/Counter";
-import "./App.css";
+import { Key } from "./features/welcome/Key";
 
 function App() {
-  return <div className="App">{Counter()}</div>;
+  return <div className="App">{Key()}</div>;
 }
 
 export default App;

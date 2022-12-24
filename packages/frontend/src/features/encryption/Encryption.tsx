@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import aesDecrypt from "./aes-decrypt";
-import aesEncrypt from "./aes-encrypt";
-import hashingFunction from "./hash";
+import aesDecrypt from "../../crypto/aes-decrypt";
+import aesEncrypt from "../../crypto/aes-encrypt";
+import hashingFunction from "../../crypto/hash";
 
-export function Counter() {
+interface IEncryptionProps {
+  symmetricKey: number[];
+}
+
+export function Encryption(props: IEncryptionProps) {
   const [plainText, setPlainText] = useState<string>("");
   const [hashedText, setHashedText] = useState<string>("");
   const [aesCypheredText, setAesCypheredText] = useState<any>();
-  const [aesDecryptedText, setAesDecryptedText] = useState<any>();
-  const key_128 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const key_128 = props.symmetricKey;
+
   function clearData() {
     setPlainText("");
     setHashedText("");
     setAesCypheredText("");
-    setAesDecryptedText("");
   }
   return (
     <div>
@@ -46,15 +49,6 @@ export function Counter() {
       <button
         style={{ margin: "10px", padding: "10px" }}
         onClick={() => {
-          const decryptedByAes = aesDecrypt(aesCypheredText, key_128);
-          setAesDecryptedText(decryptedByAes);
-        }}
-      >
-        decrypt
-      </button>
-      <button
-        style={{ margin: "10px", padding: "10px" }}
-        onClick={() => {
           clearData();
         }}
       >
@@ -62,9 +56,6 @@ export function Counter() {
       </button>
       <p style={{ textAlign: "start", paddingLeft: "10px" }}>
         my aes cyphered text is: {aesCypheredText}
-      </p>
-      <p style={{ textAlign: "start", paddingLeft: "10px" }}>
-        my aes decrypted text is: {aesDecryptedText}
       </p>
     </div>
   );
