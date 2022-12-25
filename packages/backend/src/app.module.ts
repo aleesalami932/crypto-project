@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CryptoController } from './crypto/crypto.controller';
-import { CryptoService } from './crypto/crypto.service';
+import { CryptoModule } from './crypto/crypto.module';
 
 @Module({
   imports: [
@@ -17,8 +14,9 @@ import { CryptoService } from './crypto/crypto.service';
     //   autoLoadEntities: true,
     //   synchronize: true,
     // }),
+    CryptoModule,
   ],
-  controllers: [AppController, CryptoController],
-  providers: [AppService, CryptoService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

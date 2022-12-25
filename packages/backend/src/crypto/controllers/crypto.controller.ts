@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CryptoService } from './crypto.service';
-import { generateKey } from './keyGeneration';
+import { CryptoService } from '../services/crypto.service';
+import { generateKey } from '../domain/helpers/keyGeneration';
 
 @Controller('crypto')
 export class CryptoController {
@@ -8,9 +8,8 @@ export class CryptoController {
 
   @Get('get-public-key')
   getPublicKey() {
-    const asymmetricKey = generateKey();
-    this.cryptoService.setAsymmetricKey(asymmetricKey);
-    return { data: asymmetricKey.publicKey };
+    const publicKey = this.cryptoService.
+    return { data: 'asymmetricKey.publicKey' };
   }
 
   @Post('share-symmetric-key')

@@ -1,5 +1,5 @@
 import NodeRSA from 'encrypt-rsa';
-import { AsymmetricKey } from './entities/ASymmetricKey.entity';
+import { AsymmetricKey } from '../entities/asymmetricKey.entity';
 
 export const generateKey = () => {
   const nodeRSA = new NodeRSA();
