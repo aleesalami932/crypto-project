@@ -9,7 +9,16 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         data: null,
       }),
     }),
+    shareSymmetricKey: builder.mutation({
+      query: (symmetricKey: string) => ({
+        url: "share-symmetric-key",
+        method: "POST",
+        data: null,
+        body: { symmetricKey: symmetricKey },
+      }),
+    }),
   }),
 });
 
-export const { useGetPublicKeyQuery } = extendedApiSlice;
+export const { useGetPublicKeyQuery, useShareSymmetricKeyMutation } =
+  extendedApiSlice;
