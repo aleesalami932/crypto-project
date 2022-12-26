@@ -5,13 +5,7 @@ import { IKeysRepository } from './keys.repository';
 
 @Injectable()
 export class PostgresKeysRepository implements IKeysRepository {
-  symmetricKeys: SymmetricKey[] = [
-    {
-      id: 1,
-      key: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      keyOwner: 'Ali Salami',
-    },
-  ];
+  symmetricKeys: SymmetricKey[] = [];
 
   asymmetricKey: AsymmetricKey = {
     privateKey: '',
@@ -26,14 +20,12 @@ export class PostgresKeysRepository implements IKeysRepository {
       this.asymmetricKey = asymmetricKey;
       return true;
     } else {
-      console.log('Asymmetric key already exists');
       return false;
     }
   }
 
   public setSymmetricKey(symmetricKey: SymmetricKey): any {
     this.symmetricKeys.push(symmetricKey);
-    console.log('symmetricKey in set', this.symmetricKeys);
     return true;
   }
 
@@ -68,6 +60,5 @@ export class PostgresKeysRepository implements IKeysRepository {
     );
     filteredKeys.push(newSymmetricKey);
     this.symmetricKeys = filteredKeys;
-    console.log('symmetricKey in update', this.symmetricKeys);
   }
 }

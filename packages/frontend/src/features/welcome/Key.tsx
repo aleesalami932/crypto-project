@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import rsaEncrypt from "../../crypto/rsa-encrypt";
+import { Encryption } from "../encryption/Encryption";
 import { useGetPublicKeyQuery, useShareSymmetricKeyMutation } from "./keySlice";
 
 export function Key() {
@@ -8,7 +9,6 @@ export function Key() {
   const [shareSymmetricKey, { isLoading }] = useShareSymmetricKeyMutation();
   const symmetricKey = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-  console.log("data", data);
   const plainText = symmetricKey.toString();
   if (data) {
     const key = data.data;
@@ -24,6 +24,7 @@ export function Key() {
       >
         Share Symmetric Key
       </button>
+      <div>{Encryption({ symmetricKey })} </div>
     </div>
   );
 }

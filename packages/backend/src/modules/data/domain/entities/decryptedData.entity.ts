@@ -1,3 +1,5 @@
 export class DecryptedData {
-  decryptedData: string;
+  plainText: string;
+  dataOwner: string;
+  id: number;
 }

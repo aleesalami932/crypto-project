@@ -10,5 +10,4 @@ export default function rsaEncrypt(publicKeys: any, plainText: any) {
   //   publicKey: publicKeys,
   // });
 
-  console.log("cipherText", encryptRsa);
 }

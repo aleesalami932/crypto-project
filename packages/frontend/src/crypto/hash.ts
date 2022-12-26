@@ -5,7 +5,6 @@ export default function hashingFunction(plainText: string) {
     const hashed = hash.sha256().update(plainText).digest("hex");
     return hashed;
   } else {
-    console.log("plain text is not defined ");
     return "plain text is not defined ";
   }
 }

@@ -1,6 +1,6 @@
-import { apiSlice } from "../api/apiSlice";
+import { keySlice } from "../api/apiSlice";
 
-export const extendedApiSlice = apiSlice.injectEndpoints({
+export const extendedKeySlice = keySlice.injectEndpoints({
   endpoints: (builder) => ({
     getPublicKey: builder.query({
       query: () => ({
@@ -14,11 +14,15 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         url: "share-symmetric-key",
         method: "POST",
         data: null,
-        body: { symmetricKey: symmetricKey },
+        body: {
+          id: 1,
+          keyOwner: "Ali Salami",
+          key: symmetricKey,
+        },
       }),
     }),
   }),
 });
 
 export const { useGetPublicKeyQuery, useShareSymmetricKeyMutation } =
-  extendedApiSlice;
+  extendedKeySlice;

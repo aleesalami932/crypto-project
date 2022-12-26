@@ -1,13 +1,16 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
-import { apiSlice } from "../features/api/apiSlice";
+import { dataSlice, keySlice } from "../features/api/apiSlice";
 
 export const store = configureStore({
   reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    [keySlice.reducerPath]: keySlice.reducer,
+    [dataSlice.reducerPath]: dataSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware()
+      .concat(keySlice.middleware)
+      .concat(dataSlice.middleware),
   devTools: true,
 });
 setupListeners(store.dispatch);

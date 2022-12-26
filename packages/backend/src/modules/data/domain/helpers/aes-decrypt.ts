@@ -1,4 +1,4 @@
-import aes from 'aes-js';
+import * as aes from 'aes-js';
 export default function aesDecrypt(encryptedHex: string, key: number[]) {
   console.log('decryption');
   console.log('encrypted hex', encryptedHex);

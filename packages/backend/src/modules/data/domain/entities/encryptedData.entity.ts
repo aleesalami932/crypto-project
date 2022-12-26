@@ -1,3 +1,5 @@
 export class EncryptedData {
-  encryptedData: string;
+  cipherText: string;
+  dataOwner: string;
+  id: number;
 }
