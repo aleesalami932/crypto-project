@@ -15,8 +15,8 @@ export const extendedKeySlice = keySlice.injectEndpoints({
         method: "POST",
         data: null,
         body: {
-          id: 1,
-          keyOwner: "Ali Salami",
+          id: 2,
+          keyOwner: "mhmd lamaa",
           key: symmetricKey,
         },
       }),

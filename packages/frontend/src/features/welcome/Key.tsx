@@ -1,25 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { generateSymmetricKey } from "../../crypto/generate-symmetric-key";
 import rsaEncrypt from "../../crypto/rsa-encrypt";
 import { Encryption } from "../encryption/Encryption";
 import { useGetPublicKeyQuery, useShareSymmetricKeyMutation } from "./keySlice";
 
 export function Key() {
-  const [publicKey, setPublicKey] = useState(undefined);
+  const [encryptedSymmetricKey, setEncryptedSymmetricKey] = useState("");
+  const [symmetricKey, setSymmetricKey] = useState<number[]>([]);
   const { data } = useGetPublicKeyQuery("");
   const [shareSymmetricKey, { isLoading }] = useShareSymmetricKeyMutation();
-  const symmetricKey = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-  const plainText = symmetricKey.toString();
-  if (data) {
-    const key = data.data;
-    rsaEncrypt(key, plainText);
-  }
+  useEffect(() => {
+    if (data) {
+      const key = data.data;
+      const cipherKey = rsaEncrypt(key, symmetricKey);
+      setEncryptedSymmetricKey(symmetricKey.toString());
+    }
+    if (symmetricKey.length === 0) {
+      const temp = generateSymmetricKey();
+      setSymmetricKey(temp);
+    }
+  }, [data]);
 
   return (
     <div>
       <button
         onClick={() => {
-          shareSymmetricKey(plainText);
+          shareSymmetricKey(encryptedSymmetricKey);
         }}
       >
         Share Symmetric Key

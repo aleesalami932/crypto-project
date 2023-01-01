@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { AsymmetricKey } from '../domain/entities/asymmetricKey.entity';
 import { SymmetricKey } from '../domain/entities/symmetricKey.entity';
 import { IKeysRepository } from './keys.repository';
 
 @Injectable()
 export class PostgresKeysRepository implements IKeysRepository {
+  constructor(
+    @InjectRepository(SymmetricKey)
+    private readonly symmetricKeyRepo: Repository<SymmetricKey>,
+  ) {}
   symmetricKeys: SymmetricKey[] = [];
 
   asymmetricKey: AsymmetricKey = {
@@ -25,8 +31,8 @@ export class PostgresKeysRepository implements IKeysRepository {
   }
 
   public setSymmetricKey(symmetricKey: SymmetricKey): any {
-    this.symmetricKeys.push(symmetricKey);
-    return true;
+    const newSymmetricKey = this.symmetricKeyRepo.create(symmetricKey);
+    return this.symmetricKeyRepo.save(newSymmetricKey);
   }
 
   public getAsymmetricKey(): any {
@@ -41,17 +47,19 @@ export class PostgresKeysRepository implements IKeysRepository {
     }
   }
 
-  public getSymmetricKey(keyOwner: string): any {
-    const filteredKeys = this.symmetricKeys.filter(
-      (symmetricKey) => symmetricKey.keyOwner === keyOwner,
-    );
+  public async getSymmetricKey(
+    keyOwner: string,
+  ): Promise<SymmetricKey | undefined> {
+    const key = this.symmetricKeyRepo.findOne({
+      where: {
+        keyOwner: keyOwner,
+      },
+    });
 
-    if (filteredKeys.length > 0) {
-      const symmetricKey = filteredKeys[0];
-      return symmetricKey;
-    } else {
+    if (!key) {
       throw new Error('key not found');
     }
+    return key;
   }
 
   public updateSymmetricKey(newSymmetricKey: SymmetricKey): any {
