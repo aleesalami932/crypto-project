@@ -1,3 +1,4 @@
+import { IShareSymmetricKeyBody } from "../../interfaces/interfaces";
 import { keySlice } from "../api/apiSlice";
 
 export const extendedKeySlice = keySlice.injectEndpoints({
@@ -10,15 +11,11 @@ export const extendedKeySlice = keySlice.injectEndpoints({
       }),
     }),
     shareSymmetricKey: builder.mutation({
-      query: (symmetricKey: string) => ({
+      query: (symmetricKey: IShareSymmetricKeyBody) => ({
         url: "share-symmetric-key",
         method: "POST",
         data: null,
-        body: {
-          id: 2,
-          keyOwner: "mhmd lamaa",
-          key: symmetricKey,
-        },
+        body: symmetricKey,
       }),
     }),
   }),

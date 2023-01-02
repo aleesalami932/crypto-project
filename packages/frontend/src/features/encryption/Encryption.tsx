@@ -10,15 +10,13 @@ interface IEncryptionProps {
 
 export function Encryption(props: IEncryptionProps) {
   const [plainText, setPlainText] = useState<string>("");
-  const [hashedText, setHashedText] = useState<string>("");
   const [aesCypheredText, setAesCypheredText] = useState<any>();
   const [sendEncryptionData, { isLoading: encryptionLoading }] =
     useSendEncryptedDataMutation();
   const key_128 = props.symmetricKey;
-
+  const dataOwner = localStorage.getItem("owner");
   function clearData() {
     setPlainText("");
-    setHashedText("");
     setAesCypheredText("");
   }
   return (
@@ -27,18 +25,20 @@ export function Encryption(props: IEncryptionProps) {
         onChange={(e) => {
           const inputVal = e.target.value;
           setPlainText(inputVal);
-          // const hashedText = hashingFunction(inputVal);
-          // setHashedText(hashedText);
         }}
         placeholder={"plain text"}
       />
       <p>my plain text is: {plainText}</p>
-      {/* <p>my hashed text is: {hashedText}</p> */}
 
       <button
         onClick={() => {
           const encryptedByAes = aesEncrypt(plainText, key_128);
-          sendEncryptionData(encryptedByAes);
+          if (dataOwner) {
+            sendEncryptionData({
+              cipherText: encryptedByAes,
+              dataOwner: dataOwner,
+            });
+          }
           setAesCypheredText(encryptedByAes);
         }}
       >

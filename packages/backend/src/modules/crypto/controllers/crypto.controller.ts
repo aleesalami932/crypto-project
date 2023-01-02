@@ -6,8 +6,8 @@ export class CryptoController {
   constructor(private readonly cryptoService: CryptoService) {}
 
   @Get('get-public-key')
-  getPublicKey() {
-    const publicKey = this.cryptoService.generateAsyncKey();
+  async getPublicKey() {
+    const publicKey = await this.cryptoService.generateAsyncKey();
     return { data: publicKey };
   }
 

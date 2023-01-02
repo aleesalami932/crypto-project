@@ -16,10 +16,11 @@ export class CryptoService {
   async setSymmetricKey(newSymmetricKey: SymmetricKey) {
     // const asymmetricKey = await this.keyRepository.getAsymmetricKey();
     // const plainText = rsaDecrypt(asymmetricKey.privateKey, newSymmetricKey.key);
-    this.keyRepository.setSymmetricKey({
-      ...newSymmetricKey,
-      key: newSymmetricKey.key,
-    });
+    // this.keyRepository.setSymmetricKey({
+    //   ...newSymmetricKey,
+    //   key: newSymmetricKey.key,
+    // });
+    this.keyRepository.setSymmetricKey(newSymmetricKey);
   }
 
   async updateSymmetricKey(newSymmetricKey: SymmetricKey) {
@@ -33,9 +34,9 @@ export class CryptoService {
     this.keyRepository.updateSymmetricKey(updateSymmetricKey);
   }
 
-  generateAsyncKey() {
+  async generateAsyncKey() {
     const asymmetricKey = generateKey();
-    this.keyRepository.setAsymmetricKey(asymmetricKey);
-    return asymmetricKey.publicKey;
+    const key = await this.keyRepository.setAsymmetricKey(asymmetricKey);
+    return key.publicKey;
   }
 }

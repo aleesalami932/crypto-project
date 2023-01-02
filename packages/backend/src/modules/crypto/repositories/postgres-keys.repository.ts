@@ -10,23 +10,20 @@ export class PostgresKeysRepository implements IKeysRepository {
   constructor(
     @InjectRepository(SymmetricKey)
     private readonly symmetricKeyRepo: Repository<SymmetricKey>,
+    @InjectRepository(AsymmetricKey)
+    private readonly asymmetricKeyRepo: Repository<AsymmetricKey>,
   ) {}
   symmetricKeys: SymmetricKey[] = [];
 
-  asymmetricKey: AsymmetricKey = {
-    privateKey: '',
-    publicKey: '',
-  };
-
-  public setAsymmetricKey(asymmetricKey: AsymmetricKey): any {
-    if (
-      this.asymmetricKey.privateKey === '' &&
-      this.asymmetricKey.publicKey === ''
-    ) {
-      this.asymmetricKey = asymmetricKey;
-      return true;
+  public async setAsymmetricKey(
+    asymmetricKey: AsymmetricKey,
+  ): Promise<AsymmetricKey> {
+    const oldKey = await this.asymmetricKeyRepo.findOne({ where: { id: 1 } });
+    if (oldKey) {
+      return oldKey;
     } else {
-      return false;
+      const newAsymmetricKey = this.asymmetricKeyRepo.create(asymmetricKey);
+      return await this.asymmetricKeyRepo.save(newAsymmetricKey);
     }
   }
 
@@ -35,16 +32,19 @@ export class PostgresKeysRepository implements IKeysRepository {
     return this.symmetricKeyRepo.save(newSymmetricKey);
   }
 
-  public getAsymmetricKey(): any {
-    if (
-      this.asymmetricKey.privateKey !== '' &&
-      this.asymmetricKey.publicKey !== ''
-    ) {
-      return this.asymmetricKey;
-    } else {
-      console.log('No Asymmetric key found');
-      return false;
+  public getAsymmetricKey(
+    publicKey: string,
+  ): Promise<AsymmetricKey | undefined> {
+    const key = this.asymmetricKeyRepo.findOne({
+      where: {
+        publicKey: publicKey,
+      },
+    });
+
+    if (!key) {
+      throw new Error('key not found');
     }
+    return key;
   }
 
   public async getSymmetricKey(

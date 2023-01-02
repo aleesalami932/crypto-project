@@ -6,5 +6,7 @@ export class SymmetricKey {
   @Column()
   keyOwner: string;
   @Column()
+  password: string;
+  @Column()
   key: string;
 }

@@ -1,5 +1,11 @@
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
 export class DecryptedData {
-  plainText: string;
-  dataOwner: string;
+  @PrimaryGeneratedColumn()
   id: number;
+  @Column()
+  plainText: string;
+  @Column()
+  dataOwner: string;
 }

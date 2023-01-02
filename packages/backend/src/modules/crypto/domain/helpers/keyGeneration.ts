@@ -9,6 +9,7 @@ export const generateKey = () => {
   const asymmetricKey: AsymmetricKey = {
     privateKey: privateKey,
     publicKey: publicKey,
+    id: 1,
   };
 
   return asymmetricKey;

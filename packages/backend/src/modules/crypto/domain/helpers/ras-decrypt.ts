@@ -29,7 +29,6 @@ export function rsaDecrypt(privateKey: string, encryptedText: string) {
       U/FKoHf9H6OmYtYK9/8iXI4B6OHRQuEsGKdhZ+PZJ4103ZtE1x14
       -----END RSA PRIVATE KEY-----`,
   );
-  console.log('decryption', decryption);
 
   const plainText = decryption.decrypt(encryptedText, 'RSA-OAEP', {
     md: forge.md.sha256.create(),

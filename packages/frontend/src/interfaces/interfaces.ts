@@ -1,5 +1,9 @@
 export interface IShareSymmetricKeyBody {
-  id: number;
+  password: string;
   keyOwner: string;
   key: string;
+}
+export interface IEncryptionDataBody {
+  dataOwner: string;
+  cipherText: string;
 }

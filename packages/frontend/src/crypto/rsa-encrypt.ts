@@ -16,7 +16,6 @@ export default function rsaEncrypt(publicKey: string, plainText: any) {
     md: forge.md.sha256.create(),
     mgf1: forge.mgf1.create(),
   });
-  console.log("cipherText:", cipherText);
 
   return cipherText;
 }
