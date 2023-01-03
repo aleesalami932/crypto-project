@@ -11,8 +11,8 @@ export default function Login(props: ILoginProps) {
     useShareSymmetricKeyMutation();
   return (
     <div>
-      <h3>Cryptography Project</h3>
-      <h4>Welcome</h4>
+      <h3 style={{ margin: "10px" }}>Cryptography Project</h3>
+      <h4 style={{ margin: "10px" }}>Welcome</h4>
       <input
         placeholder="Username"
         onChange={(e) => {

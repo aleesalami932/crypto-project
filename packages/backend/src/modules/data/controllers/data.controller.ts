@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { DataService } from '../services/data.service';
 
 @Controller('data')

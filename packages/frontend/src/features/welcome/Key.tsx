@@ -9,18 +9,26 @@ export function Key() {
   const [encryptedSymmetricKey, setEncryptedSymmetricKey] = useState("");
   const [symmetricKey, setSymmetricKey] = useState<number[]>([]);
   const { data } = useGetPublicKeyQuery("");
-  
+
   useEffect(() => {
     if (data) {
-      const key = data.data;
-      const cipherKey = rsaEncrypt(key, symmetricKey);
-      setEncryptedSymmetricKey(symmetricKey.toString());
+      const publicKey = data.data.toString();
+      const stringSymmetricKey = symmetricKey.toString();
+      const cipherKey = rsaEncrypt(publicKey, stringSymmetricKey);
+      setEncryptedSymmetricKey(cipherKey);
+      
+      console.log("-------------Symmetric Key Ops-------------");
+      console.log("Public Key: ", publicKey);
+      console.log("Symmetric Key: ", symmetricKey);
+      console.log("String Symmetric Key: ", stringSymmetricKey);
+      console.log("encrypted Symmetric Key: ", cipherKey);
+      console.log("-------------Symmetric Key Ops-------------");
     }
     if (symmetricKey.length === 0) {
       const temp = generateSymmetricKey();
       setSymmetricKey(temp);
     }
-  }, [data]);
+  }, [data, symmetricKey]);
 
   return (
     <div>

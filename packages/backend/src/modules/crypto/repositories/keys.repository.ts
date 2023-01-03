@@ -6,9 +6,8 @@ export abstract class IKeysRepository {
     asymmetricKey: AsymmetricKey,
   ): Promise<AsymmetricKey>;
   public abstract setSymmetricKey(symmetricKey: SymmetricKey): Promise<void>;
-  public abstract updateSymmetricKey(symmetricKey: SymmetricKey): Promise<void>;
   public abstract getAsymmetricKey(
-    publicKey: string,
+    id: number,
   ): Promise<AsymmetricKey | undefined>;
   public abstract getSymmetricKey(
     keyOwner: string,

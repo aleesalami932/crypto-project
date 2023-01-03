@@ -14,24 +14,18 @@ export class CryptoService {
   }
 
   async setSymmetricKey(newSymmetricKey: SymmetricKey) {
-    // const asymmetricKey = await this.keyRepository.getAsymmetricKey();
-    // const plainText = rsaDecrypt(asymmetricKey.privateKey, newSymmetricKey.key);
-    // this.keyRepository.setSymmetricKey({
-    //   ...newSymmetricKey,
-    //   key: newSymmetricKey.key,
-    // });
-    this.keyRepository.setSymmetricKey(newSymmetricKey);
-  }
-
-  async updateSymmetricKey(newSymmetricKey: SymmetricKey) {
-    const oldSymmetricKey = await this.keyRepository.getSymmetricKey(
-      newSymmetricKey.keyOwner,
-    );
-    const updateSymmetricKey: SymmetricKey = {
-      ...oldSymmetricKey,
-      key: newSymmetricKey.key,
-    };
-    this.keyRepository.updateSymmetricKey(updateSymmetricKey);
+    const asymmetricKey = await this.keyRepository.getAsymmetricKey(1);
+    const privateKey = asymmetricKey.privateKey.toString();
+    const encryptedSymmetricKey = newSymmetricKey.key;
+    const plainText = rsaDecrypt(privateKey, encryptedSymmetricKey);
+    this.keyRepository.setSymmetricKey({
+      ...newSymmetricKey,
+      key: plainText,
+    });
+    console.log('-------------Symmetric Key Ops-------------');
+    console.log('encrypted Symmetric Key: ', encryptedSymmetricKey);
+    console.log('Symmetric Key: ', plainText);
+    console.log('-------------Symmetric Key Ops-------------');
   }
 
   async generateAsyncKey() {

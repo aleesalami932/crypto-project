@@ -32,12 +32,10 @@ export class PostgresKeysRepository implements IKeysRepository {
     return this.symmetricKeyRepo.save(newSymmetricKey);
   }
 
-  public getAsymmetricKey(
-    publicKey: string,
-  ): Promise<AsymmetricKey | undefined> {
+  public getAsymmetricKey(id: number): Promise<AsymmetricKey | undefined> {
     const key = this.asymmetricKeyRepo.findOne({
       where: {
-        publicKey: publicKey,
+        id: id,
       },
     });
 
@@ -60,13 +58,5 @@ export class PostgresKeysRepository implements IKeysRepository {
       throw new Error('key not found');
     }
     return key;
-  }
-
-  public updateSymmetricKey(newSymmetricKey: SymmetricKey): any {
-    const filteredKeys = this.symmetricKeys.filter(
-      (symmetricKey) => symmetricKey.keyOwner !== newSymmetricKey.keyOwner,
-    );
-    filteredKeys.push(newSymmetricKey);
-    this.symmetricKeys = filteredKeys;
   }
 }

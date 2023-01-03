@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CryptoService } from '../services/crypto.service';
 
 @Controller('crypto')
@@ -15,13 +15,6 @@ export class CryptoController {
   shareSymmetricKey(@Body() body) {
     const symmetricKeyDetails = body;
     this.cryptoService.setSymmetricKey(symmetricKeyDetails);
-    return { success: true };
-  }
-
-  @Patch('share-symmetric-key')
-  updateSymmetricKey(@Body() body) {
-    const symmetricKeyDetails = body;
-    this.cryptoService.updateSymmetricKey(symmetricKeyDetails);
     return { success: true };
   }
 }

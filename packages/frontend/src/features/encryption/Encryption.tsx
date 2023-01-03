@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import aesDecrypt from "../../crypto/aes-decrypt";
 import aesEncrypt from "../../crypto/aes-encrypt";
-import hashingFunction from "../../crypto/hash";
 import { useSendEncryptedDataMutation } from "./encryptionSlice";
 
 interface IEncryptionProps {
@@ -20,15 +18,17 @@ export function Encryption(props: IEncryptionProps) {
     setAesCypheredText("");
   }
   return (
-    <div style={{ marginTop: "10px" }}>
+    <div>
       <input
         onChange={(e) => {
           const inputVal = e.target.value;
           setPlainText(inputVal);
         }}
         placeholder={"plain text"}
+        disabled={encryptionLoading}
+        style={{ margin: "10px" }}
       />
-      <p>my plain text is: {plainText}</p>
+      <p style={{ margin: "10px" }}>my plain text is: {plainText}</p>
 
       <button
         onClick={() => {
@@ -41,6 +41,8 @@ export function Encryption(props: IEncryptionProps) {
           }
           setAesCypheredText(encryptedByAes);
         }}
+        disabled={encryptionLoading}
+        style={{ margin: "10px" }}
       >
         encrypt
       </button>
@@ -48,10 +50,14 @@ export function Encryption(props: IEncryptionProps) {
         onClick={() => {
           clearData();
         }}
+        disabled={encryptionLoading}
+        style={{ margin: "10px" }}
       >
         clear
       </button>
-      <p>my aes cyphered text is: {aesCypheredText}</p>
+      <p style={{ margin: "10px" }}>
+        my aes ciphered text is: {aesCypheredText}
+      </p>
     </div>
   );
 }
